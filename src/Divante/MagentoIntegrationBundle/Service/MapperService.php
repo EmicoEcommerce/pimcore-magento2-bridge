@@ -297,7 +297,7 @@ class MapperService
             if ($definition instanceof DataObject\ClassDefinition\Data\Multiselect) {
                 $options = $definition->getOptions();
                 $values = [];
-                foreach ($singleField->value as $value) {
+                foreach ($singleField->value ?? [] as $value) {
                     $values = array_filter($options, function ($elem) use ($value) {
                         return $elem['value'] == $value;
                     });

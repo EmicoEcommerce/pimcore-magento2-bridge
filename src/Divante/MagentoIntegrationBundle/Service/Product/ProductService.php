@@ -45,7 +45,9 @@ class ProductService extends AbstractObjectService
                 $mappedObject->attr_checksum = $this->getMapper()->getAttributesChecksum($mappedObject);
                 $mappedObjects[$object->getId()] = $mappedObject;
             } catch (\Exception $exception) {
-                $missingData[$object->getId()] = $this->getLoggedErrorMessage($exception->getMessage());
+                $missingData[$object->getId()] = $this->getLoggedErrorMessage(
+                    $exception->getMessage() . PHP_EOL . $exception->getTraceAsString()
+                );
             }
         }
         if (!$mappedObjects) {

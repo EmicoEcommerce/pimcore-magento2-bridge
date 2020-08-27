@@ -33,8 +33,8 @@ class MapQuantityValue extends AbstractMapStrategy
     {
         $names      = $this->getFieldNames($field, $arrayMapping);
         $parsedData = [
-            'value' => $field->value['value'],
-            'unit'  => $field->value['unitAbbreviation'],
+            'value' => $field->value ? $field->value['value'] : null,
+            'unit'  => $field->value ? $field->value['unitAbbreviation'] : null,
             'type'  => static::TYPE,
             'label' => $this->getLabel($field, $language)
         ];
