@@ -353,6 +353,8 @@ class MapperService
             $object->configurableParentId = $configurableParent->getId();
         }
 
+        $object->hasVariants = $product->hasChildren([AbstractObject::OBJECT_TYPE_VARIANT]);
+
         $configurableAttributes = $product->getProperty('configurable_attributes');
         if (!$configurableAttributes) {
             return;
