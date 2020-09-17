@@ -15,7 +15,9 @@ use Divante\MagentoIntegrationBundle\Helper\MapperHelper;
 use Divante\MagentoIntegrationBundle\Mapper\MapperContext;
 use Pimcore\Cache\Core\Exception\InvalidArgumentException;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\Webservice\Data\DataObject\Element;
 
 /**
@@ -323,11 +325,36 @@ class MapperService
     }
 
     /**
+     * @param Product $product
+     * @return Product|null
+     */
+    public function getConfigurableParent(Product $product): ?Product
+    {
+        if ($product->getType() === AbstractObject::OBJECT_TYPE_OBJECT) {
+            return null;
+        }
+
+        /** @var Product $parent */
+        $parent = $product->getParent();
+        while ($parent->getType() !== AbstractObject::OBJECT_TYPE_OBJECT) {
+            $parent = $parent->getParent();
+        }
+        return $parent;
+    }
+
+    /**
      * @param \stdClass $object
      * @param Concrete  $product
      */
     public function enrichConfigurableProduct(\stdClass &$object, Concrete $product): void
     {
+        $configurableParent = $this->getConfigurableParent($product);
+        if ($configurableParent) {
+            $object->configurableParentId = $configurableParent->getId();
+        }
+
+        $object->hasVariants = $product->hasChildren([AbstractObject::OBJECT_TYPE_VARIANT]);
+
         $configurableAttributes = $product->getProperty('configurable_attributes');
         if (!$configurableAttributes) {
             return;
