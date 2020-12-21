@@ -38,10 +38,12 @@ abstract class AbstractMapStrategy implements MapStrategyInterface
      */
     protected function getFieldNames(Element $field, array $mappingArray)
     {
-        if (array_key_exists($field->name, $mappingArray)) {
-            $fieldName = $mappingArray[$field->name];
+        $lowerFieldName = strtolower($field->name);
+
+        if (array_key_exists($lowerFieldName, $mappingArray)) {
+            $fieldName = $mappingArray[$lowerFieldName];
         } else {
-            $fieldName = [$field->name];
+            $fieldName = [$lowerFieldName];
         }
         return str_replace('-', '_', array_map('strtolower', $fieldName));
     }
