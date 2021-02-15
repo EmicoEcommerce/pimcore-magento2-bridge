@@ -23,7 +23,7 @@ class MapperHelper
     const BOOL_TYPES = ['booleanSelect', 'checkbox'];
     const SELECT_TYPES = ['select'];
     const QUANTITY_VALUE_TYPES = ['inputQuantityValue', 'quantityValue'];
-    const OBJECT_TYPES = ['href', 'image', 'manyToOneRelation', 'manyToOneObjectRelation'];
+    const OBJECT_TYPES = ['href', 'image', 'video', 'manyToOneRelation', 'manyToOneObjectRelation'];
     const MULTI_OBJECT_TYPES = [
         'multihref',
         'imageGallery',
@@ -34,6 +34,7 @@ class MapperHelper
     const STRUCTURED_TYPES = [self::LOCALIZED_FIELD_TYPE];
     const USER_TYPES = ['user'];
     const IMAGE_TYPES = ['image', 'imageGallery'];
+    const VIDEO_TYPES = ['video'];
     const MULTI_SELECT_TYPES = [
         'multiselect',
         'countrymultiselect',
@@ -48,3 +49,4 @@ class MapperHelper
     const OBJECT_BRICKS_TYPES        = [self::OBJECT_BRICKS_TYPE];
     const CLASSIFICATION_STORE_TYPES = [self::CLASSIFICATION_STORE_TYPE];
 }
+

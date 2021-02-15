@@ -50,9 +50,17 @@ class MapObjectValue extends AbstractMapStrategy
         if ($field->value) {
             if (in_array($field->type, MapperHelper::IMAGE_TYPES)) {
                 return ['id' =>  $field->value, 'type' => 'asset'];
+            } elseif (in_array($field->type, MapperHelper::VIDEO_TYPES)) {
+                $video = unserialize($field->value);
+                return [
+                    'type' => 'video',
+                    'format' => $video['type'],
+                    'link' => $video['data']
+                ];
             } else {
                 return $field->value;
             }
         }
     }
 }
+
